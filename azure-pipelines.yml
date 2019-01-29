@@ -13,5 +13,7 @@ variables:
   imageName: 'pioluk/azure-pipelines-test:$(build.buildId)'
 
 steps:
+- script: ls -lsha
+  displayName: 'ls'
 - script: docker build -f Dockerfile -t $(imageName) .
   displayName: 'docker build'
