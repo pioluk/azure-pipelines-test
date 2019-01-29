@@ -10,12 +10,12 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-  imageName: 'pioluk/azure-pipelines-test:$(Build.SourceVersion)'
+  imageName: 'pioluk/azure-pipelines-test'
 
 steps:
 - script: docker login -u $(dockerId) -p $(dockerPassword)
   displayName: 'docker login'
-- script: docker build -f Dockerfile -t $(imageName) .
+- script: docker build -f Dockerfile -t $(imageName):$(Build.SourceVersion) -t $(imageName):latest .
   displayName: 'docker build'
 - script: docker push $(imageName)
   displayName: 'docker push'
