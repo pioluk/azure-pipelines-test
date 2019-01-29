@@ -10,7 +10,7 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-  imageName: 'pioluk/azure-pipelines-test:$(build.buildId)'
+  imageName: 'pioluk/azure-pipelines-test:$(Build.SourceVersion)'
 
 steps:
 - script: docker login -u $(dockerId) -p $(dockerPassword)
