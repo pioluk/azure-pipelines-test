@@ -13,9 +13,19 @@ variables:
   imageName: 'pioluk/azure-pipelines-test'
 
 steps:
-- script: docker login -u $(dockerId) -p $(dockerPassword)
-  displayName: 'docker login'
-- script: docker build -f Dockerfile -t $(imageName):$(Build.BuildId) -t $(imageName):$(Build.SourceVersion) -t $(imageName):latest .
-  displayName: 'docker build'
-- script: docker push $(imageName)
-  displayName: 'docker push'
+# - script: docker login -u $(dockerId) -p $(dockerPassword)
+#   displayName: 'docker login'
+# - script: docker build -f Dockerfile -t $(imageName):$(Build.BuildId) -t $(imageName):$(Build.SourceVersion) -t $(imageName):latest .
+#   displayName: 'docker build'
+# - script: docker push $(imageName)
+#   displayName: 'docker push'
+- task: Docker@1
+  displayName: 'Build an image'
+  inputs:
+    imageName: $(imageName):$(Build.BuildId)
+- task: Docker@1
+  displayName: 'Push an image'
+  inputs:
+    command: 'Push an image'
+    imageName: $(imageName):$(Build.BuildId)
+    includeSourceTags: true
